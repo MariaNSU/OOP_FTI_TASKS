@@ -25,7 +25,7 @@ public:
         
         }
     // Move constructor.
-    SharedPTR(t_SharedPTR &&uniquePTR): ptr(uniquePTR.ptr), counter(uniquePTR.counter) {
+    SharedPTR(t_SharedPTR &&uniquePTR) noexcept : ptr(uniquePTR.ptr), counter(uniquePTR.counter)  {
         uniquePTR.ptr = nullptr;
         uniquePTR.counter = nullptr;
     }
@@ -36,7 +36,7 @@ public:
         release();
     }
 public: // Assignment.
-    t_SharedPTR& operator=(t_SharedPTR &&sharedPTR) {
+    t_SharedPTR& operator=(t_SharedPTR &&sharedPTR) noexcept {
         if(ptr == sharedPTR.ptr) {
             return *this;
         }
@@ -52,7 +52,7 @@ public: // Assignment.
         return *this;
         
     }
-    t_SharedPTR& operator=(const t_SharedPTR& obj) {
+    t_SharedPTR& operator=(const t_SharedPTR& obj) noexcept {
         if(ptr == obj.ptr) {
             return *this;
         }
