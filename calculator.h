@@ -2,8 +2,11 @@
 #include "command.h"
 #include <limits>
 
+// Пиши везде final пожалуйста.
 class Calculator {
 private:
+    // У тебя ж нет полей. Зачем тогда конструктор?
+    // Ну и тогда все поля static можно сделать.
     double add(double val1, double val2) {
         return val1 + val2;
     }
@@ -19,11 +22,13 @@ private:
     double mult(double val1, double val2) {
         return val1*val2;
     }
+    // А если я на ноль делю?
     double div(double val1, double val2) {
         return val1/val2;
     }
 public:
     double execute(const Command & com) {
+        // com.getComm() можно сразу в switch засунуть
         CommandType com_ = com.getComm();
         switch (com_) {
             case CommandType :: add:
