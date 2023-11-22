@@ -37,6 +37,9 @@ class FileIO  {
 private:
     mutable std::shared_mutex mtx;
 public:
+    //Каждый вызов write создавать объект Calculator...Жеееесть.....
+    // И зачем сюда std::istream передавать если только в std::cout выводишь
+    // И кажется все методы должны быть константными.
     void write(const Command & cmd, std::istream & is ) {
         std::unique_lock lock (mtx);
         Calculator calc;
@@ -44,7 +47,9 @@ public:
         std::cout << cmd.getVal1() << " and " << cmd.getVal2() << " resulted "<< result << "\n!";
         //is >> result;
     }
+    // Про исключения написал в тг.
     Command getCmd(std::istream & is) {
+        //Слишком много операций захватывает мутекс, попробуй сделать декомпозицию.
         std::shared_lock lock (mtx);
         std::string str;
         getline(is, str);
