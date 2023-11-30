@@ -34,34 +34,23 @@ CommandType defineCmd(const std::string & name){
 }
 } 
 
-
-
 class FileIO final  {
 private:
-//проблема, если храним ссылку
     FileInfo fi;
-    mutable std::shared_mutex mtx;
-
+    mutable std::mutex mtx;
 public:
-    FileIO () {
-        fi.dirName = "";
-        fi.logNeed = 0;
-        fi.numberOfFiles = 0;
-        fi.outputName = "";
-    } ;
+    FileIO () = default;
     
-    void write(const Command & cmd, std::istream & is ) const{
-        Result r (cmd);
-        {
-            std::unique_lock<std::shared_mutex> lock (mtx);
-            std::cout << r.getRes() << std::endl;
-            //is >> result;
-        }
+    void write(const Command & cmd, std::ostream & is) const{
+        Result r;
+        std::unique_lock<std::mutex> lock (mtx);
+        //std::cout << r.getRes(cmd) << std::endl;
+        is << r.getRes(cmd) << std::endl;
     }
-    Command getCmd(std::istream & is) {
+    Command getCmd(std::istream & is) const {
         std::string str;
         {
-            std::shared_lock<std::shared_mutex> lock (mtx);
+            std::unique_lock<std::mutex> lock (mtx);
             getline(is, str);
         }
     

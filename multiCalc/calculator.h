@@ -21,7 +21,7 @@ private:
     }
     static double div(double val1, double val2) {
         if(val2 == 0) {
-            return std::numeric_limits<double>::max();
+            return std::numeric_limits<double>::max();//none double 
         }
         return val1/val2;
     }
