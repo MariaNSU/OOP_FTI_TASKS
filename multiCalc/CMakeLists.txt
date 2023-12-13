@@ -10,7 +10,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 
 project (MultiCalc)
-add_executable(multiCalc main.cpp)
+add_executable(multiCalc main.cpp calculator.h fileInfo.h fileIO.h result.h)
 
 enable_testing()
-add_subdirectory(test)
+add_subdirectory(tests)

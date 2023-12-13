@@ -39,12 +39,12 @@ private:
     FileInfo fi;
     mutable std::mutex mtx;
 public:
-    FileIO () = default;
-    
-    void write(const Command & cmd, std::ostream & is) const{
+    void write(const Command & cmd, std::ostream & is, bool logging) const{
         Result r;
         std::unique_lock<std::mutex> lock (mtx);
-        //std::cout << r.getRes(cmd) << std::endl;
+        if(logging){
+            std::cout << r.getRes(cmd) << std::endl;
+        }
         is << r.getRes(cmd) << std::endl;
     }
     Command getCmd(std::istream & is) const {

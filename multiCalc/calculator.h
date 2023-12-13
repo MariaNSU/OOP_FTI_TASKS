@@ -1,6 +1,7 @@
 #pragma once
 #include "command.h"
 #include <limits>
+#include <cmath>
 
 class Calculator final {
 private:
@@ -21,7 +22,7 @@ private:
     }
     static double div(double val1, double val2) {
         if(val2 == 0) {
-            return std::numeric_limits<double>::max();//none double 
+            return std::nan("");
         }
         return val1/val2;
     }
@@ -47,7 +48,7 @@ public:
                 return div(com.getVal1(), com.getVal2());
                 break;
             default:
-                return std::numeric_limits<double>::max();
+                return std::nan("");
         }
     }
 };
