@@ -8,7 +8,7 @@
 
 namespace {
 CommandType defineCmd(const std::string & name){
-    CommandType cmd;
+    CommandType cmd = CommandType :: none;
     if(name == "add") {
         cmd = CommandType :: add;
     }
@@ -55,21 +55,31 @@ public:
         }
     
         if(str.empty()) {
-            std::cout << "Empty line in file: " << str << std::endl; 
+            std::cout << "Empty line in file " << std::endl;
+            return Command(CommandType::none,0,0);
         }
         auto strStream = std::stringstream(str);
         std::string cmdName;
         double val1, val2;
         if(!(strStream >> cmdName)){
-            std::cout << "Wrong command format: " << str << std::endl; 
+            std::cout << "Wrong command format " << std::endl; 
+            return Command(CommandType::none,0,0);
         }
         if(!(strStream >> val1)) {
-            std::cout << "Wrong value1 format: " << str << std::endl; 
+            std::cout << "Wrong value1 format " << std::endl; 
+            return Command(CommandType::none,0,0);
         }
         if(!(strStream >> val2)) {
-            std::cout << "Wrong value2 format: " << str << std::endl; 
+            std::cout << "Wrong value2 format " << std::endl; 
+            return Command(CommandType::none,0,0);
         }
-        return Command(defineCmd(cmdName),val1,val2);
+        if(defineCmd(cmdName) == CommandType :: none) {
+            return Command(CommandType::none,0,0);
+        }
+        else{
+            return Command(defineCmd(cmdName),val1,val2);
+        }
+        
     }
     void readLogFile(std::istream & inp) {
         std::string str;
@@ -91,10 +101,10 @@ public:
                 fi.numberOfFiles = std::stoi(str.substr(pos + 1));
             }
             if(str.substr(0,pos) == "logging" && ((pos + 1) < str.size())){
-                if(std::stoi(str.substr(pos + 1)) <= 0) {
+                if(std::stoi(str.substr(pos + 1)) != 0 && std::stoi(str.substr(pos + 1)) != 1) {
                     return;
                 }
-                fi.logNeed = std::stoi(str.substr(pos + 1));
+                fi.logNeed = (bool)std::stoi(str.substr(pos + 1));
             }
         }
     }

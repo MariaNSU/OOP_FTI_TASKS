@@ -3,6 +3,7 @@
 #include <limits>
 #include <cmath>
 
+
 class Calculator final {
 private:
     static double add(double val1, double val2) {

@@ -3,9 +3,8 @@
 #include <sstream>
 #include <fstream>
 #include <mutex>
-#include "calculator.h"
 
-enum CommandType {add, mult, add_sq, sq_add, sub, div};
+enum CommandType {add, mult, add_sq, sq_add, sub, div,none};
 class Command final {
 private:
     CommandType Comm;
@@ -44,7 +43,7 @@ public:
                 return "div";
                 break;
             default:
-                return " ";
+                return "none";
         }
     }
 };

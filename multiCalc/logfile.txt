@@ -1,4 +1,4 @@
 dir:/Users/mariapetrova/Desktop/multiCalc/input
 output:/Users/mariapetrova/Desktop/multiCalc/output/out.dat
-numberOfFiles:4
-logging:1
+numberOfFiles:1000
+logging:0
